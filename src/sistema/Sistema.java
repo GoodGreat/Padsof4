@@ -10,9 +10,9 @@ import es.uam.eps.padsof.emailconnection.*;
  * La clase sistema es la principal de nuestro proyecto. Gestiona, por asi decirlo, la funcionalidad general de la aplicacion. 
  * En esta clase se guardan la lista de solicitudes, expulsiones, asignaturas y alumnos. Tambien desde esta clase
  * se cargaran y guardaran los datos que en ella se encuentren.
- * Principalmente, esta clase ser· la mas utilizada por los profesores.
+ * Principalmente, esta clase ser√° la utilizada por los profesores.
  * 
- * @author ¡lvaro Martinez de Navascues y Alejandro Martin Climent
+ * @author √Ålvaro Martinez de Navascues y Alejandro Martin Climent
  */
 public class Sistema implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -64,7 +64,7 @@ public class Sistema implements Serializable {
 	/**
 	 *  Getter del atributo loginProf
 	 *  
-	 *  @author ¡lvaro Martinez de Navascues
+	 *  @author √Ålvaro Martinez de Navascues
 	 *  @return loginProf, cadena especial con el que se logueara un usuario que quiera tener permisos
 	 */
 	public String getloginProf(){
@@ -104,7 +104,7 @@ public class Sistema implements Serializable {
 	/**
 	 * Getter del array de Asignaturas
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @return Lista de Asignaturas (de forma inmodificable)
 	 */
 	public List<Asignatura> getAsignaturas(){
@@ -146,7 +146,7 @@ public class Sistema implements Serializable {
 	  * 
 	  * @author Alejandro Martin Climent  
 	  * @param numA. Se refiere al NIA del alumno
-	  * @param contr. Se refiere a la contraseÒa del alumno
+	  * @param contr. Se refiere a la contrase√±a del alumno
 	  * @return passwordProf, contrasena especial con la que se logueara un usuario que quiera tener permisos
 	 */
 	public boolean log_in(String numA, String contr){
@@ -168,12 +168,12 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Este metodo crea una asignatura y la aÒade al array de Asignaturas
+	 * Este metodo crea una asignatura y la a√±ade al array de Asignaturas
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param nombre. Nombre de la asignatura
 	 * @param visible. Booleano que determina la visibilidad de la asignatura
-	 * @return booleano. Devuelve true si la asignatura se aÒadio correctamente. 'false' en caso contrario
+	 * @return booleano. Devuelve true si la asignatura se a√±adio correctamente. 'false' en caso contrario
 	 */
 	public boolean crearAsignatura(String nombre, boolean visible){
 		if (this.isProf == true){
@@ -185,7 +185,7 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Este metodo crea un alumno y lo aÒade al array de Alumno
+	 * Este metodo crea un alumno y lo a√±ade al array de Alumno
 	 * 
 	 * @author Alejandro Martin Climent
 	 * @param nombre. Nombre del alumno
@@ -193,7 +193,7 @@ public class Sistema implements Serializable {
 	 * @param correo. Correo del alumno
 	 * @param numA. Numero de identificacion del alumno
 	 * @param password. Contrasenia del alumno
-	 * @return booleano. Devuelve true si el alumno se aÒadio correctamente. 'false' en caso contrario
+	 * @return booleano. Devuelve true si el alumno se a√±adio correctamente. 'false' en caso contrario
 	 */
 	public boolean crearAlumno(String nombre, String apellido, String correo, String numA, String password){
 		if (this.isProf == true){
@@ -205,13 +205,13 @@ public class Sistema implements Serializable {
 	}
 
 	/**
-	 * Este metodo crea un tema y lo aÒade al array de una Asignatura
+	 * Este metodo crea un tema y lo a√±ade al array de una Asignatura
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param asignatura. Asignatura a la cual pertenece el tema
 	 * @param nombre. Nombre del tema
 	 * @param visible. Booleano que determina la visibilidad del tema
-	 * @return booleano. Devuelve true si el tema se aÒadio correctamente. 'false' en caso contrario
+	 * @return booleano. Devuelve true si el tema se a√±adio correctamente. 'false' en caso contrario
 	 */
 	public boolean crearTema(Asignatura asignatura, String nombre, boolean visible){
 		if (this.isProf == true){
@@ -223,24 +223,24 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Este metodo crea un ejercicio y lo aÒade a un tema
+	 * Este metodo crea un ejercicio y lo a√±ade a un tema
 	 * 
 	 * @author Alejandro Martin Climent
-	 * @param tema. Tema en el que se quiere aÒadir el ejercicio
+	 * @param tema. Tema en el que se quiere a√±adir el ejercicio
 	 * @param nombre. Nombre del ejercicio
 	 * @param peso. Peso del ejercicio con respecto al total de la nota
-	 * @param anyoFin. AÒo en el que expira el ejercicio
+	 * @param anyoFin. A√±o en el que expira el ejercicio
 	 * @param mesFin. Mes en el que expira el ejercicio
 	 * @param diaFin. Dia en el que expira el ejercicio
 	 * @param horasFin. Hora en la que expira el ejercicio
 	 * @param minsFin. Minuto en el que expira el ejercicio
-	 * @param anyoIni. AÒo de comienzo de la actividad
+	 * @param anyoIni. A√±o de comienzo de la actividad
 	 * @param mesIni. Mes de comienzo de la actividad
 	 * @param diaIni. Dia de comienzo de la actividad
 	 * @param horaIni. Hora de comienzo de la actividad
 	 * @param minIni. Minuto de comienzo de la actividad
 	 * @param visible. Booleano que determina la visibilidad del ejercicio
-	 * @return booleano. Devuelve true si el ejercicio se aÒadio correctamente. 'false' en caso contrario
+	 * @return booleano. Devuelve true si el ejercicio se a√±adio correctamente. 'false' en caso contrario
 	 */
 	public boolean crearEjercicio(Tema tema, String nombre, float peso, int anyoFin, int mesFin, int diaFin, int horasFin, int minsFin,
 			int anyoIni, int mesIni, int diaIni, int horaIni, int minIni, boolean visible){		
@@ -253,14 +253,14 @@ public class Sistema implements Serializable {
 	}
 
 	/**
-	 * Este metodo crea un apunte y lo aÒade a un tema
+	 * Este metodo crea un apunte y lo a√±ade a un tema
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
-	 * @param tema. Tema en el que se quiere aÒadir el apunte
+	 * @author √Ålvaro Martinez de Navascues
+	 * @param tema. Tema en el que se quiere a√±adir el apunte
 	 * @param titulo. Titulo del apunte
 	 * @param visible. Booleano que determina la visibilidad del apunte
 	 * @param contenido. Contenido del apunte
-	 * @return booleano. Devuelve true si el apunte se aÒadio correctamente. 'false' en caso contrario
+	 * @return booleano. Devuelve true si el apunte se a√±adio correctamente. 'false' en caso contrario
 	 */
 	public boolean crearApunte(Tema tema, String titulo, boolean visible, String contenido){
 		if (this.isProf == true){
@@ -315,10 +315,10 @@ public class Sistema implements Serializable {
 	}
 
 	/**
-	 * Este metodo crea una solicitud de un alumno a una asignatura. La aÒade tanto al array de solicitudes que hay en la clase Sistema, como
+	 * Este metodo crea una solicitud de un alumno a una asignatura. La a√±ade tanto al array de solicitudes que hay en la clase Sistema, como
 	 * al que hay en la clase Alumno
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param asignatura. Asignatura en la cual se quiere matricular
 	 * @return booleano. Devuelve true si es el alumno el que ha creado la solicitud correctamente. 'false'  en caso contrario.
 	 */
@@ -342,11 +342,11 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Este metodo aÒade un alumno al array de Alumno
+	 * Este metodo a√±ade un alumno al array de Alumno
 	 * 
 	 * @author Alejandro Martin Climent
 	 * @param alumno. Alumno que queremos aniadir al sistema
-	 * @return booleano. Devuelve 'true' si el alumno se ha aÒadido correctamente. 'false' en caso contrario
+	 * @return booleano. Devuelve 'true' si el alumno se ha a√±adido correctamente. 'false' en caso contrario
 	 */
 	public boolean aniadirAlumno(Alumno alumno){
 		if (this.isProf == true){
@@ -359,7 +359,7 @@ public class Sistema implements Serializable {
 	/**
 	 * Mediante este metodo, los profesores podran consultar las notas de un alumno en una asignatura
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param alumno. Alumno del cual se quieren saber sus calificaciones
 	 * @param asignatura. Asignatura de la cual queremos saber las calificaciones del alumno
 	 * @return float. Devuelve la nota media del alumno en esa asignatura
@@ -401,7 +401,7 @@ public class Sistema implements Serializable {
 	/**
 	 * Setter del atributo alumnoLogueado
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param alumnoLogueado. Alumno que se ha logueado en la aplicacion
 	 */
 	public void setAlumnoLogueado(Alumno alumnoLogueado) {
@@ -432,7 +432,7 @@ public class Sistema implements Serializable {
 	/**
 	 * Mediante este metodo, los profesor deniegan la solicitud de los alumnos para matricularse.
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param solicitud. La solicitud que se quiere denegar
 	 * @return booleano. Devuelve true si la solicitud se denego correctamente. 'false' en caso contrario
 	 */
@@ -453,7 +453,7 @@ public class Sistema implements Serializable {
 	/**
 	 * Este metodo se encarga de leer los datos de Alumnos de un fichero, e introducirlos al sistema
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param archivo. Ruta del fichero de donde se quieren leer los datos
 	 * @throws IOException Fallo de INPUT OUTPUT
 	 * @throws ClassNotFoundException Fallo de clase no encontrada
@@ -510,7 +510,7 @@ public class Sistema implements Serializable {
 	/**
 	 * Este metodo carga el objeto sistema desde un fichero en formato de bytes
 	 * 
-	 * @author ¡lvaro Martinez de Navascues
+	 * @author √Ålvaro Martinez de Navascues
 	 * @param archivo. Ruta del fichero del cual se quiere cargar el objeto Sistema
 	 * @throws IOException Fallo de INPUT o OUTPUT 
 	 * @throws ClassNotFoundException Fallo de clase no encontrada
@@ -533,16 +533,16 @@ public class Sistema implements Serializable {
 	}
 	
 	/**
-	 * Este metodo se encarga de crear una pregunta y aÒadirla a un ejercicio
+	 * Este metodo se encarga de crear una pregunta y a√±adirla a un ejercicio
 	 * 
 	 * @author Alejandro Martin Climent
-	 * @param ejercicio. Ejercicio al que se quiere aÒadir la pregunta
+	 * @param ejercicio. Ejercicio al que se quiere a√±adir la pregunta
 	 * @param enunciado. Enunciado de la pregunta
 	 * @param puntuacion. Puntuacion de la pregunta
 	 * @param falloResta. Booleano que determina si fallar la pregunta resta puntuacion ('true' = SI RESTA)
 	 * @param resta. Determina la cantidad de puntuacion que se resta al fallar la pregunta
 	 * @param tipo. Tipo de pregunta (multiple, booleana, unica, libre...)
-	 * @return booleano. Devuelve 'true' si la pregunta se aÒadio correctamente. 'false' en caso contrario
+	 * @return booleano. Devuelve 'true' si la pregunta se a√±adio correctamente. 'false' en caso contrario
 	 */
 	public boolean crearPregunta(Ejercicio ejercicio, String enunciado, float puntuacion, boolean falloResta, float resta, String tipo){ 
 		if( tipo == "Libre" || tipo == "libre"){
