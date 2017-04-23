@@ -7,8 +7,6 @@ import asignatura.Tema;
 import sistema.Alumno;
 import sistema.Sistema;
 
-import java.util.ArrayList;
-
 /**
  * Clase Ejercicio, que implementará las distintas funconalidades relaconadas con los ejercicios
  * que los alumnos pueden realizar de las asignaturas
@@ -26,6 +24,7 @@ public class Ejercicio implements Serializable{
 	private boolean visible;
 	private Tema temaSuperior;
 	private int nRealizaciones;
+	private boolean aleatorio;
 	private List<Pregunta> preguntas;
 
 	/**
@@ -52,10 +51,11 @@ public class Ejercicio implements Serializable{
 	 * @param horasIni. La hora partir de la que se puede realizar el ejercicio
 	 * @param minsIni. El minuto a partir del que se puede realizar el ejercicio
 	 * @param visible. Indica si el ejercicio es visible (true) o no (false)
+	 * @param aleat. Indica si el orden de las preguntas y opciones tiene que ser aleatorio o no.
 	 */
-	public Ejercicio(String nombre, float peso, int anyoFin, int mesFin, int diaFin,
-			int horasFin, int minsFin, int anyoIni, int mesIni, int diaIni,
-			int horasIni, int minsIni, boolean visible){
+	public Ejercicio(String nombre, float peso, int anyoIni, int mesIni, int diaIni,
+			int horasIni, int minsIni, int anyoFin, int mesFin, int diaFin,
+			int horasFin, int minsFin, boolean visible, boolean aleat){
 		
 		this.nRealizaciones = 0;
 		this.nombre = nombre;
@@ -65,6 +65,7 @@ public class Ejercicio implements Serializable{
 		this.fechaIni.set(anyoIni, mesIni, diaIni, horasIni, minsIni);
 		this.fechaFin.set(anyoFin, mesFin, diaFin, horasFin, minsFin);
 		this.temaSuperior = null;
+		this.aleatorio = aleat;
 		this.preguntas = new ArrayList<Pregunta>();
 	}
 	
@@ -103,16 +104,38 @@ public class Ejercicio implements Serializable{
 	}
 	
 	/**
-	 * Cambia a true el atributo de visibilidad
+	 *  Getter del booleano aleatorio, indica si las preguntas y opciones se tienen que mostrar de forma aleatoria
+	 *  
+	 *  @return aleatorio, a true si el profesor quiere las preguntas y opciones aleatorias, a false en caso contrario
+	 */
+	public boolean getAleatorio(){
+		return this.aleatorio;
+	}
+	
+	/**
+	 *  Setter del booleano aleatorio, indica si las preguntas y opciones se tienen que mostrar de forma aleatoria
+	 *  
+	 *  @param aleatorio, a true si el profesor quiere las preguntas y opciones aleatorias, a false en caso contrario
+	 */
+	public void setAleatorio(boolean aleat){
+		if (this.nRealizaciones == 0 && Sistema.getInstance().isProf() == true){
+			this.visible = false;
+		}
+	     this.aleatorio = aleat;
+	}
+
+	
+	/**
+	 * Cambia a false el atributo de visibilidad
 	 */
 	public void ocultarEjercicio(){
-		if (this.nRealizaciones == 0){
+		if (this.nRealizaciones == 0 && Sistema.getInstance().isProf() == true){
 			this.visible = false;
 		}
 	}
 	
 	/**
-	 * Cambia a false el atributo de visibilidad
+	 * Cambia a true el atributo de visibilidad
 	 */
 	public void publicarEjercicio(){
 		if (Sistema.getInstance().isProf() == true) {
@@ -136,13 +159,22 @@ public class Ejercicio implements Serializable{
 	 *  @return booleano. True si se aniade bien. 'False' en caso contrario
 	 */
 	public boolean aniadirPregunta(Pregunta pregunta){
-		if (nRealizaciones > 0 || Sistema.getInstance().isProf() == false){
-			System.out.println("El ejercicio ya ha sido realizado, no se puede modificar de ninguna forma.");
+		if (/*nRealizaciones > 0*/ Sistema.getInstance().isProf() == false){
+			System.out.println("11");
 		} else{
+			System.out.println("sE ANIADE .");
 			pregunta.setEjercicioSuperior(this);
 			return preguntas.add(pregunta);
 		}
+		System.out.println("33");
 		return false;
+	}
+	
+	/**
+	 * Metodo que barajea las preguntas de un ejercicio
+	 */
+	public void barajarPreguntas(){
+		Collections.shuffle(this.preguntas);
 	}
 	
 	/**
@@ -152,7 +184,7 @@ public class Ejercicio implements Serializable{
 	 */
 	public void eliminarPregunta(Pregunta pregunta){
 		if (nRealizaciones > 0 || Sistema.getInstance().isProf() == false){
-			System.out.println("El ejercicio ya ha sido realizado, no se puede modificar de ninguna forma.");
+			System.out.println("22.");
 		}else{
 			preguntas.remove(pregunta);
 		}
@@ -320,19 +352,18 @@ public class Ejercicio implements Serializable{
 		float nota = 0;
 		Calendar ahoramismo = Calendar.getInstance();
 		
-		if(this.fechaFin.before(ahoramismo)){
+		//if(this.fechaFin.before(ahoramismo)){
 			
 			for(int i = 0; preguntas.size() > i; i++){
 				puntuacionMaxima += preguntas.get(i).getPuntuacion();
 	
 				nota += preguntas.get(i).obtenerNotaAlumno(alumno);
 			}
+
 			if(nota < 0){
 				return 0;
 			}
 			return 10 * (nota/puntuacionMaxima);
-		}
-		return 0;
 	}
 	
 
