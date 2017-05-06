@@ -35,8 +35,8 @@ public class AsignaturaTest {
 		opcion2 = new Opcion("No");
 		opciones1 = new ArrayList<Opcion>();
 		opciones2 = new ArrayList<Opcion>();
-		ejercicio1 = new Ejercicio("Ejercicio1", 10, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
-		ejercicio2 = new Ejercicio("Ejercicio2", 10, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		ejercicio1 = new Ejercicio("Ejercicio1", 10, 2016, 1, 10, 12, 0, 2018, 10, 10, 12, 0, true, false);
+		ejercicio2 = new Ejercicio("Ejercicio2", 10, 2016, 1, 10, 12, 0, 2018, 10, 10, 12, 0, true, false);
 		pregunta1 = new PreguntaBooleana("¿Es el cielo azul?", 5, false, 5, "booleana");
 		pregunta2 = new PreguntaBooleana("¿Es el cielo verde?", 5, false, 0.25f, "booleana");
 		pregunta3 = new PreguntaBooleana("¿Es el cielo rojo?", 10, false, 0.25f, "booleana");

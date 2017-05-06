@@ -181,6 +181,7 @@ public class Asignatura implements Serializable{
 			puedeBorrarse = posibleCambiarTema(tema);
 			
 			if(puedeBorrarse == false){
+				System.out.println("No puede borrarse este tema porque al menos un alumno ha realizado un ejercicio en este o alguno de sus subtemas. este mensaje SI debe aparecer");
 				return false;
 			} else{
 				return temas.remove(tema);
@@ -193,7 +194,7 @@ public class Asignatura implements Serializable{
 	/**
 	 * Indica si un tema puede eliminarse u ocultarse
 	 *  
-	 *  @param tema. Tema que se quiere comprobar
+	 *  @param false si ha encontrado algun ejercicio ya resuelto, true en caso contrario
 	 *  @return true si puede cambiarse y false si no
 	 */
 	public boolean posibleCambiarTema(Tema tema){
@@ -237,7 +238,7 @@ public class Asignatura implements Serializable{
 		for(Tema temaAux: this.getTemas()){
 			nota += temaAux.consultarCalificacionesAlumno(alumno);
 		}
-
+		
 		return 10 *(nota/calcularPesoPonderado());
 	}
 	
@@ -254,6 +255,11 @@ public class Asignatura implements Serializable{
 			pesoPonderado += temaAux.calcularPesoPonderado();
 		}
 		return pesoPonderado;
+	}
+	
+	@Override
+	public String toString(){
+		return this.getNombre();
 	}
 }
 

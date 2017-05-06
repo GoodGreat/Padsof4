@@ -160,7 +160,7 @@ public class Alumno implements Serializable{
 	 * Getter del array de asignaturas del alumno
 	 * 
 	 * @author Alejandro Martin Climent
-	 * @return List. Lista de asignaturas
+	 * @return List<Asignatura>. Lista de asignaturas
 	 */
 	public List<Asignatura> getAsignaturas() {
 		return this.asignaturas;
@@ -180,7 +180,7 @@ public class Alumno implements Serializable{
 	 * Getter del array de solicitudes del alumno
 	 * 
 	 * @author Alejandro Martin Climent
-	 * @return List. Lista de solicitudes
+	 * @return List<Solicitud>. Lista de solicitudes
 	 */
 	public List<Solicitud> getSolicitudes() {
 		return solicitudes;
@@ -210,10 +210,16 @@ public class Alumno implements Serializable{
 	 * Setter del atributo password
 	 * 
 	 * @author Álvaro Martinez de Navascues
-	 * @param password. Contraseña del alumno
+	 * @param password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	@Override
+	public String toString(){
+		return ("Nombre y Apellidos: " + this.nombre + " " + this.apellido + "\n" 
+				+ "Email: " + this.correo + "\n" + "NUMA: " + this.numA + "\n" + "Contraseña: "
+				+ this.password + "\n");				
+	}
 }

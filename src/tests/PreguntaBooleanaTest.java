@@ -39,7 +39,7 @@ public class PreguntaBooleanaTest {
 		alumno1 = new Alumno("Juan", "Gonzalez", "juan@gmail.es", "1234", "contrasena1");
 		alumno2 = new Alumno("Miguel", "Garcia", "miggui@gmail.es", "1235", "contrasena2");
 		alumno3 = new Alumno("Pepe", "Garcia", "peps@gmail.es", "1255", "contrasena3");
-		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false, false);
 		preguntabool1 = new PreguntaBooleana("¿Es el cielo azul?", 0.5f, false, 0.25f, "booleana");
 		respuestaProf = new RespuestaBooleana(null);
 		respuesta1 = new RespuestaBooleana(alumno1);
@@ -96,6 +96,21 @@ public class PreguntaBooleanaTest {
 	public void testSetEjercicioSuperior(){
 		preguntabool1.setEjercicioSuperior(ejercicio1);
 		assertSame(ejercicio1, preguntabool1.getEjercicioSuperior());
+	}
+	
+	@Test
+	public void testGetAleatorio() {
+		boolean aleatorio = true;
+		ejercicio1.setAleatorio(aleatorio);
+		ejercicio1.aniadirPregunta(preguntabool1);
+		assertSame(aleatorio, preguntabool1.getAleatorio());
+	}
+
+	@Test
+	public void testSetAleatorio() {
+		boolean aleatorio = true;
+		preguntabool1.setAleatorio(aleatorio);
+		assertSame(aleatorio, preguntabool1.getAleatorio());
 	}
 	
 	@Test

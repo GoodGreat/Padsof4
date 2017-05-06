@@ -39,7 +39,7 @@ public class MultipreguntaTest {
 		alumno1 = new Alumno("Juan", "Gonzalez", "juan@gmail.es", "1234", "contrasena1");
 		alumno2 = new Alumno("Miguel", "Garcia", "miggui@gmail.es", "1235", "contrasena2");
 		alumno3 = new Alumno("Pepe", "Garcia", "peps@gmail.es", "1255", "contrasena3");
-		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false, false);
 		multipregunta1 = new Multipregunta("¿Es el cielo azul?", 0.5f, false, 0.25f, "multipregunta");
 		respuestaProf = new Multirrespuesta(alumno1);
 		respuesta1 = new Multirrespuesta(alumno1);
@@ -97,6 +97,22 @@ public class MultipreguntaTest {
 	public void testSetEjercicioSuperior(){
 		multipregunta1.setEjercicioSuperior(ejercicio1);
 		assertSame(ejercicio1, multipregunta1.getEjercicioSuperior());
+	}
+	
+
+	@Test
+	public void testGetAleatorio() {
+		boolean aleatorio = true;
+		ejercicio1.setAleatorio(aleatorio);
+		ejercicio1.aniadirPregunta(multipregunta1);
+		assertSame(aleatorio, multipregunta1.getAleatorio());
+	}
+
+	@Test
+	public void testSetAleatorio() {
+		boolean aleatorio = true;
+		multipregunta1.setAleatorio(aleatorio);
+		assertSame(aleatorio, multipregunta1.getAleatorio());
 	}
 	
 	@Test

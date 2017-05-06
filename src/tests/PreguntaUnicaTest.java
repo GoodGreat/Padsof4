@@ -39,7 +39,7 @@ public class PreguntaUnicaTest {
 		alumno1 = new Alumno("Juan", "Gonzalez", "juan@gmail.es", "1234", "contrasena1");
 		alumno2 = new Alumno("Miguel", "Garcia", "miggui@gmail.es", "1235", "contrasena2");
 		alumno3 = new Alumno("Pepe", "Garcia", "peps@gmail.es", "1255", "contrasena3");
-		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false, false);
 		preguntaUnica1 = new PreguntaUnica("¿Es el cielo azul?", 0.5f, false, 0.25f, "unica");
 		respuestaProf = new RespuestaUnica(null);
 		respuesta1 = new RespuestaUnica(alumno1);
@@ -97,6 +97,22 @@ public class PreguntaUnicaTest {
 	public void testSetEjercicioSuperior(){
 		preguntaUnica1.setEjercicioSuperior(ejercicio1);
 		assertSame(ejercicio1, preguntaUnica1.getEjercicioSuperior());
+	}
+	
+
+	@Test
+	public void testGetAleatorio() {
+		boolean aleatorio = true;
+		ejercicio1.setAleatorio(aleatorio);
+		ejercicio1.aniadirPregunta(preguntaUnica1);
+		assertSame(aleatorio, preguntaUnica1.getAleatorio());
+	}
+
+	@Test
+	public void testSetAleatorio() {
+		boolean aleatorio = true;
+		preguntaUnica1.setAleatorio(aleatorio);
+		assertSame(aleatorio, preguntaUnica1.getAleatorio());
 	}
 	
 	@Test

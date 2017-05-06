@@ -89,7 +89,7 @@ public class PreguntaLibre extends Pregunta{
 	/**
 	 *  Setter del Ejercicio al que pertenece una pregunta de tipo Libre
 	 *  
-	 *  @param ejerciciosup Ejercicio al que pertenece la pregunta
+	 *  @return Ejercicio, el ejercicio al que pertenece esta pregunta
 	 */
 	public void setEjercicioSuperior(Ejercicio ejerciciosup) {
 		super.setEjercicioSuperior(ejerciciosup);
@@ -108,7 +108,8 @@ public class PreguntaLibre extends Pregunta{
 	/**
 	 *  Setter del atrbuto respuestaProf
 	 *  
-	 *  @param respuesta la respuesta que da como solucion un profesor a una pregunta planteada por el profesor
+	 *  @param respuestaProf, la respuesta que da como solucion un profesor
+	 *  a una pregunta planteada por el profesor
 	 */
 	public void setRespuestaProf(RespuestaLibre respuesta){
 		Sistema sistema = Sistema.getInstance();
@@ -149,8 +150,8 @@ public class PreguntaLibre extends Pregunta{
 	
 	/**
 	 *  Funcion que aniade una respuesta a una pregunta de tipo Libre
-	 *  @param alumno. Alumno que va a aniadir la respuesta
-	 *  @param opciones. Lista de opciones que se quiere aniadir
+	 *  
+	 *  @param respuesta, respuestas que se quiere aniadir
 	 *  @return booleano a true si se ha podido aniadir o false en caso contrario
 	 */
 	public boolean pregAniadirRespuesta(Alumno alumno, List<Opcion> opciones){			

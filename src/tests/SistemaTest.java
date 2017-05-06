@@ -42,8 +42,8 @@ public class SistemaTest {
 		opcion2 = new Opcion("No");
 		opciones1 = new ArrayList<Opcion>();
 		opciones2 = new ArrayList<Opcion>();
-		ejercicio1 = new Ejercicio("Ejercicio1", 10, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
-		ejercicio2 = new Ejercicio("Ejercicio2", 10, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		ejercicio1 = new Ejercicio("Ejercicio1", 10, 2017, 3, 10, 12, 0, 2017, 10, 10, 12, 0, true, false);
+		ejercicio2 = new Ejercicio("Ejercicio2", 10, 2017, 3, 10, 12, 0, 2017, 10, 10, 12, 0, true, false);
 		alumno1 = new Alumno("Juan", "Gonzalez", "juan@gmail.es", "1234", "contrasena1");
 		sistema.log_in("Profesor", "profeduudle");		
 	}
@@ -153,9 +153,10 @@ public class SistemaTest {
 		int diaIni = 23;
 		int horaIni = 9;
 		int minIni = 0;
+		boolean aleatorio = false;
 		assertSame(sistema.getAsignaturas().get(0).getTemas().get(0).getEjercicios().size(), 0);	//Verificar que el tamaño del array es  0
 		sistema.crearEjercicio(sistema.getAsignaturas().get(0).getTemas().get(0), nombreEjercicio, pesoEjercicio, 
-				anyoFin, mesFin, diaFin, horaFin, minFin, anyoIni, mesIni, diaIni, horaIni, minIni, VISIBLE);
+				anyoFin, mesFin, diaFin, horaFin, minFin, anyoIni, mesIni, diaIni, horaIni, minIni, VISIBLE, aleatorio);
 		assertSame(sistema.getAsignaturas().get(0).getTemas().get(0).getEjercicios().size(), 1);	//Verificar que el tamaño del array es  1 ahora
 	}
 
@@ -192,9 +193,10 @@ public class SistemaTest {
 		int diaIni = 23;
 		int horaIni = 9;
 		int minIni = 0;
+		boolean aleatorio = false;
 		assertSame(sistema.getAsignaturas().get(0).getTemas().get(0).getEjercicios().size(), 0);		//Verificar que el tamaño del array es  0
 		sistema.crearEjercicio(sistema.getAsignaturas().get(0).getTemas().get(0), nombreEjercicio, pesoEjercicio, 
-				anyoFin, mesFin, diaFin, horaFin, minFin, anyoIni, mesIni, diaIni, horaIni, minIni, VISIBLE);
+				anyoFin, mesFin, diaFin, horaFin, minFin, anyoIni, mesIni, diaIni, horaIni, minIni, VISIBLE, aleatorio);
 		assertSame(sistema.getAsignaturas().get(0).getTemas().get(0).getEjercicios().size(), 1);		//Verificar que el tamaño del array es 1 ahora
 	}
 

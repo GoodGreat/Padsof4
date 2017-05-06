@@ -7,8 +7,6 @@ import asignatura.Tema;
 import sistema.Alumno;
 import sistema.Sistema;
 
-import java.util.ArrayList;
-
 /**
  * Clase Ejercicio, que implementará las distintas funconalidades relaconadas con los ejercicios
  * que los alumnos pueden realizar de las asignaturas
@@ -27,7 +25,7 @@ public class Ejercicio implements Serializable{
 	private Tema temaSuperior;
 	private int nRealizaciones;
 	private List<Pregunta> preguntas;
-
+	private boolean aleatorio;
 	/**
 	 * Constructor sencillo del objeto Ejercicio. Simplemente sirve para instanciar la clase
 	 * @author Alvaro Martinez de Navascues
@@ -52,13 +50,15 @@ public class Ejercicio implements Serializable{
 	 * @param horasIni. La hora partir de la que se puede realizar el ejercicio
 	 * @param minsIni. El minuto a partir del que se puede realizar el ejercicio
 	 * @param visible. Indica si el ejercicio es visible (true) o no (false)
+	 * @param aleat. Indica si las preguntas y opciones se mostraran aleatoriamente o no
 	 */
-	public Ejercicio(String nombre, float peso, int anyoFin, int mesFin, int diaFin,
-			int horasFin, int minsFin, int anyoIni, int mesIni, int diaIni,
-			int horasIni, int minsIni, boolean visible){
+	public Ejercicio(String nombre, float peso, int anyoIni, int mesIni, int diaIni, int horasIni, int minsIni,
+			int anyoFin, int mesFin, int diaFin, int horasFin, int minsFin, 
+			 boolean visible, boolean aleat){
 		
 		this.nRealizaciones = 0;
 		this.nombre = nombre;
+		this.visible = visible;
 		this.peso = peso;
 		this.fechaIni = Calendar.getInstance();
 		this.fechaFin = Calendar.getInstance();
@@ -66,6 +66,7 @@ public class Ejercicio implements Serializable{
 		this.fechaFin.set(anyoFin, mesFin, diaFin, horasFin, minsFin);
 		this.temaSuperior = null;
 		this.preguntas = new ArrayList<Pregunta>();
+		this.aleatorio = aleat;
 	}
 	
 	/**
@@ -96,17 +97,42 @@ public class Ejercicio implements Serializable{
 	/**
 	 *  Setter del tema superior, el tema principal en el que esta contenido un subtema
 	 *  
-	 *  @param temaSup, el tema en el que esta contenido
+	 *  @param tema superior, el tema en el que esta contenido
 	 */
 	public void setTemaSuperior(Tema temaSup){
 	     this.temaSuperior = temaSup;
 	}
 	
 	/**
+	 *  Getter del booleano aleatorio, indica si las preguntas y opciones se tienen que mostrar de forma aleatoria
+	 *  
+	 *  @return aleatorio, a true si el profesor quiere las preguntas y opciones aleatorias, a false en caso contrario
+	 */
+	public boolean getAleatorio(){
+		return this.aleatorio;
+	}
+	
+	/**
+	 *  Setter del booleano aleatorio, indica si las opciones se tienen que mostrar de forma aleatoria
+	 *  
+	 *  @param aleatorio, a true si el profesor quiere las opciones aleatorias, a false en caso contrario
+	 */
+	public void setAleatorio(boolean aleat){
+		if (this.nRealizaciones > 0){
+			return;
+		} else if(Sistema.getInstance().isProf() == true){
+		     this.aleatorio = aleat;
+		     for(Pregunta preguntaAux : this.getPreguntas()){
+		    	 preguntaAux.setAleatorio(aleat);
+		     }
+		}	
+	}
+	
+	/**
 	 * Cambia a true el atributo de visibilidad
 	 */
 	public void ocultarEjercicio(){
-		if (nRealizaciones > 0 && this.isExpirado() == false){
+		if (nRealizaciones == 0 &&Sistema.getInstance().isProf() == true){
 			this.visible = false;
 		}
 	}
@@ -115,7 +141,7 @@ public class Ejercicio implements Serializable{
 	 * Cambia a false el atributo de visibilidad
 	 */
 	public void publicarEjercicio(){
-		if (Sistema.getInstance().isProf() == true && this.isExpirado() == false) {
+		if (Sistema.getInstance().isProf() == true) {
 			for (Alumno alumnoAux : this.getTemaSuperior().getAsignatura().getAlumnos()) {
 				try {
 					Sistema.getInstance().notificarPorEmail(alumnoAux, "Publicacion Nuevo Ejercicio",
@@ -133,17 +159,26 @@ public class Ejercicio implements Serializable{
 	 *  Funcion que aniade una Pregunta a un ejercicio, si aun este no ha sido realizado
 	 *  
 	 *  @param pregunta, la pregunta que se aniadira
-	 *  @return booleano. True si se aniade bien. 'False' en caso contrario
 	 */
 	public boolean aniadirPregunta(Pregunta pregunta){
-		if (nRealizaciones > 0 && this.isExpirado() == false && Sistema.getInstance().isProf() == true){
-			System.out.println("El ejercicio ya ha sido realizado, no se puede modificar de ninguna forma.");
+		if (nRealizaciones > 0 || Sistema.getInstance().isProf() == false){
+			System.out.println("No se puede modificar el ejercicio.");
 		}else{
 			pregunta.setEjercicioSuperior(this);
+			pregunta.setAleatorio(this.aleatorio);
 			return preguntas.add(pregunta);
 		}
 		return false;
 	}
+	
+	/**
+	 * Metodo que barajea las preguntas de un ejercicio
+	 */
+	public void barajarPreguntas(){
+		if(this.aleatorio == true){
+			Collections.shuffle(this.preguntas);
+		}
+	}	
 	
 	/**
 	 *  Funcion que elimina una pregunta de un ejercicio
@@ -151,7 +186,7 @@ public class Ejercicio implements Serializable{
 	 *  @param pregunta, la pregunta que se eliminara
 	 */
 	public void eliminarPregunta(Pregunta pregunta){
-		if (nRealizaciones > 0 && Sistema.getInstance().isProf() == true && this.isExpirado() == false){
+		if (nRealizaciones > 0 || Sistema.getInstance().isProf() == false){
 			System.out.println("El ejercicio ya ha sido realizado, no se puede modificar de ninguna forma.");
 		}else{
 			preguntas.remove(pregunta);
@@ -212,7 +247,7 @@ public class Ejercicio implements Serializable{
 	/**
 	 *  Setter del atributo fechaIni
 	 *  
-	 *  @param fechaIni, fecha en la que se abre el plazo de realizacion de un ejercicio
+	 *  @return fechaFin, fecha en la que se abre el plazo de realizacion de un ejercicio
 	 */
 	public void setFechaIni(Calendar fechaIni) {
 		if (Sistema.getInstance().isProf() == true) {
@@ -241,7 +276,7 @@ public class Ejercicio implements Serializable{
 	/**
 	 *  Setter del atributo fechaFin
 	 *  
-	 *  @param fechaFin. Fecha de finalizacion del ejercicio
+	 *  @return fechaFin, fecha en la que se cierra el plazo de realizacion de un ejercicio
 	 */
 	public void setFechaFin(Calendar fechaFin) {
 		if (Sistema.getInstance().isProf() == true && this.getnRealizaciones() == 0) {
@@ -268,13 +303,13 @@ public class Ejercicio implements Serializable{
 	}
 
 	/**
-	 *  Comprueba si un ejercicio ha expirado o no 
+	 *  Comprueba si un ejercicio esta en plazo o no 
 	 *  
-	 *  @return booleano a true si ha expirado y a false en caso contrario
+	 *  @return booleano a true si lo esta y a false en caso contrario
 	 */
-	public boolean isExpirado() {
+	public boolean estaEnPlazo() {
 		Calendar ahoramismo = Calendar.getInstance();
-		if(ahoramismo.after(getFechaFin()) == true){
+		if(ahoramismo.after(getFechaIni()) == true && ahoramismo.before(getFechaFin()) == true){
 			return true;
 		}else
 			return false;
@@ -290,17 +325,11 @@ public class Ejercicio implements Serializable{
 	}
 	
 	/**
-	 * Este metodo permite responder preguntas de ejercicios
-	 * 
-	 * @author Alejandro Martin Climent
-	 * @param alumno Alumno que realiza la respuesta
-	 * @param pregunta Pregunta que se quiere responder
-	 * @param opciones Lista de opciones que se quiere añadir
-	 * @return booleano. True si se ha registrado. False en caso contrario
+	 * Funcion que aniade una respuesta a una pregunta de un ejercicio
 	 */
 	public boolean registrarRespuestaAlumno(Alumno alumno, Pregunta pregunta, List<Opcion> opciones){
 		
-		if (Sistema.getInstance().isProf() == false) {
+		if (Sistema.getInstance().isProf() == false && this.visible == true && estaEnPlazo() == true) {
 			this.aumentarRealizaciones();
 			return pregunta.pregAniadirRespuesta(alumno, opciones);
 		}
@@ -310,7 +339,7 @@ public class Ejercicio implements Serializable{
 	/**
 	 * Funcion que obtiene la nota de un alumno para un ejercicio
 	 * 
-	 * @param alumno. Alumno del cual se quiere saber la nota
+	 * @param alumno
 	 * @return nota, la nota del alumno en este ejercicio
 	 */
 	public float obtenerNotaAlumno(Alumno alumno){
@@ -328,5 +357,9 @@ public class Ejercicio implements Serializable{
 		return 10 * (nota/puntuacionMaxima);
 	}
 	
+	@Override
+	public String toString(){
+		return this.getNombre();
+	}
 
 }

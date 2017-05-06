@@ -82,7 +82,7 @@ public class Tema implements Serializable{
 	/**
 	 *  Setter de la asignatura
 	 *  
-	 *  @param asignatura. Asignatura a la que pertenece el tema
+	 *  @return asignatura en la que esta contenido este tema
 	 */
 	public void setAsignatura(Asignatura asignatura){
 		this.asignatura = asignatura;
@@ -93,6 +93,8 @@ public class Tema implements Serializable{
 	 */
 	public void publicarTema(){
 		if (Sistema.getInstance().isProf() == true) {
+			
+			
 			 for(Tema temaAux: getSubtemas()){
 				temaAux.publicarTema();
 			 }
@@ -105,6 +107,16 @@ public class Tema implements Serializable{
 			    	ejercicioAux.publicarEjercicio();
 			 }
 			 
+			/* for (Alumno alumnoAux : this.getAsignatura().getAlumnos()) {
+					try {
+						Sistema.getInstance().notificarPorEmail(alumnoAux, "Publicacion Nuevo Tema",
+								"Se ha publicado el tema " + this.getNombre() + " en la Asignatura "
+										+ this.getAsignatura());
+					} catch (Exception e) {
+						System.out.println("Error: FailedInternetConnection");
+					}
+				}
+			 */
 			 this.visible = true;
 		}
 	}
@@ -174,7 +186,7 @@ public class Tema implements Serializable{
 	/**
 	 * Elimina un subtema, un tema contenido en este
 	 *  
-	 *  @param subtema, subtema que se quiere eliminar, solo si no contiene ejercicios ya realizados
+	 *  @param tema, subtema que se quiere eliminar, solo si no contiene ejercicios ya realizados
 	 */
 	public void eliminarSubtema(Tema subtema){
 		boolean puedeBorrarse;
@@ -195,8 +207,7 @@ public class Tema implements Serializable{
 	/**
 	 * Indica si un subtema puede eliminarse u ocultarse
 	 *  
-	 *  @param subtema. false si ha encontrado algun ejercicio ya resuelto, true en caso contrario
-	 *  @return booleano. True si se puede cambiar el subtema. 'False' en caso contrario
+	 *  @param false si ha encontrado algun ejercicio ya resuelto, true en caso contrario
 	 */
 	public boolean posibleCambiarSubtema(Tema subtema){
 		
@@ -273,9 +284,6 @@ public class Tema implements Serializable{
 
 	/**
 	 * Consulta las calificaciones de un alumno en una asignatura
-	 * @author Alejandro Martin Climent
-	 * @param alumno. El alumno del cual se quieren saber las calificaciones
-	 * @return nota. Nota del alumno en un tema 
 	 */
 	public float consultarCalificacionesAlumno(Alumno alumno){
 		float nota = 0;
@@ -291,7 +299,8 @@ public class Tema implements Serializable{
 	
 	/**
 	 * Consulta las calificaciones de un alumno en una asignatura
-	 *
+	 * 
+	 * @param alumno, un alumno matriculado en esta asignatura
 	 * @return nota, la nota media de un alumno en todos los ejercicios de esta asignatura
 	 */
 	public float calcularPesoPonderado(){
@@ -306,5 +315,10 @@ public class Tema implements Serializable{
 		}
 		
 		return pesoPonderado;
+	}
+	
+	@Override
+	public String toString(){
+		return this.getNombre();
 	}
 }

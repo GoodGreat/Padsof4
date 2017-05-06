@@ -81,7 +81,8 @@ public class Apunte implements Serializable {
 	 * Setter del tema superior, el tema principal en el que esta contenido un
 	 * subtema
 	 * 
-	 * @param temaSup. El tema en el que esta contenido
+	 * @param tema
+	 *            superior, el tema en el que esta contenido
 	 */
 	public void setTemaSuperior(Tema temaSup) {
 		this.temaSuperior = temaSup;
@@ -136,4 +137,8 @@ public class Apunte implements Serializable {
 		}
 	}
 
+	@Override
+	public String toString(){
+		return this.getTitulo();
+	}
 }

@@ -26,7 +26,7 @@ public abstract class Pregunta implements Serializable{
 	private List<Opcion> opciones;
 	private Respuesta respuestaProf;
 	private List<Respuesta> respuestas;
-	
+	private boolean aleatorio;
 
 	/**
 	 *  Constructor de la clase Pregunta
@@ -36,6 +36,7 @@ public abstract class Pregunta implements Serializable{
 	 * @param falloResta, indica si al fallar una pregunta penalizara o no
 	 * @param resta, la nota que resta al ejercicio en caso de solucionar mal una pregunta
 	 * @param tipo, el tipo de pregunta que es esta pregunta
+	 * @param aleatorio, a true si las opciones se mostraran de forma aleaoria
 	 */
 	public Pregunta(String enunciado, float puntuacion, boolean falloResta, float resta, String tipo){
 		this.enunciado = enunciado;
@@ -107,10 +108,28 @@ public abstract class Pregunta implements Serializable{
 	/**
 	 *  Setter del Ejercicio al que pertenece una pregunta
 	 *  
-	 *  @param ejerciciosup. Ejercicio al que pertenece la pregunta
+	 *  @return Ejercicio, el ejercicio al que pertenece esta pregunta
 	 */
 	public void setEjercicioSuperior(Ejercicio ejerciciosup) {
 	     this.ejercicioSup = ejerciciosup;
+	}
+	
+	/**
+	 *  Getter del booleano aleatorio, indica si las opciones se tienen que mostrar de forma aleatoria
+	 *  
+	 *  @return aleatorio, a true si el profesor quiere las opciones aleatorias, a false en caso contrario
+	 */
+	public boolean getAleatorio(){
+		return this.aleatorio;
+	}
+	
+	/**
+	 *  Setter del booleano aleatorio, indica si las preguntas y opciones se tienen que mostrar de forma aleatoria
+	 *  
+	 *  @param aleatorio, a true si el profesor quiere las preguntas y opciones aleatorias, a false en caso contrario
+	 */
+	public void setAleatorio(boolean aleat){
+	     this.aleatorio = aleat;
 	}
 	
 	/**
@@ -145,6 +164,15 @@ public abstract class Pregunta implements Serializable{
 	}
 	
 	/**
+	 * Metodo que barajea las opciones de una pregunta
+	 */
+	public void barajarOpciones(){
+		if(this.aleatorio == true){
+			Collections.shuffle(this.opciones);
+		}
+	}	
+	
+	/**
 	 *  Getter de las respuestas de los alumnos
 	 *  
 	 *  @return Respuestas de los alumnos a esta pregunta
@@ -174,8 +202,7 @@ public abstract class Pregunta implements Serializable{
 	/**
 	 *  Funcion que aniade una respuesta a una pregunta
 	 *  
-	 *  @param alumno. Alumno que va a realizar la respuesta
-	 *  @param opciones. Lista de opciones que se quiere aniadir
+	 *  @param respuesta, respuestas que se quiere aniadir
 	 *  @return booleano a true si se ha podido aniadir o false en caso contrario
 	 */
 	public abstract boolean pregAniadirRespuesta(Alumno alumno, List<Opcion> opciones);
@@ -187,7 +214,7 @@ public abstract class Pregunta implements Serializable{
 	 */
 	public float alumnosContestados(){
 		if (Sistema.getInstance().isProf() == true) {
-		return (float)respuestas.size() * 100 / getEjercicioSuperior().getTemaSuperior().getAsignatura().getAlumnos().size();
+			return (float)respuestas.size() * 100 / getEjercicioSuperior().getTemaSuperior().getAsignatura().getAlumnos().size();
 		}
 		return 0;
 	}
@@ -204,6 +231,7 @@ public abstract class Pregunta implements Serializable{
 				if( obtenerNotaAlumno(respuestas.get(i).getAlumno()) > 0){
 					contador++;
 				}
+				
 			}
 			return (float)contador  * 100/respuestas.size();
 		}

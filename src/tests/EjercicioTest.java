@@ -24,8 +24,8 @@ public class EjercicioTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		alumno1 = new Alumno("Juan", "Gonzalez", "juan@gmail.es", "1234", "contrasena1");
-		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		alumno1 = new Alumno("Jorge", "Alcazar", "Jorge.Alcazar@esdu.es", "1289", "JoA");
+		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2000, 3, 10, 12, 0, 2017, 10, 11, 12, 0, true, false);
 		tema1 = new Tema("Introduccion", false);
 		pregunta1 = new PreguntaUnica("¿2+2?", 0.5f, false, 0.25f, "Unica");
 		pregunta2 = new PreguntaUnica("¿3+3?", 0.5f, false, 0.25f, "Unica");
@@ -65,7 +65,22 @@ public class EjercicioTest {
 	}
 
 	@Test
+	public void testGetAleatorio() {
+		boolean aleatorio = false;
+		assertSame(aleatorio, ejercicio1.getAleatorio());
+	}
+
+	@Test
+	public void testSetAleatorio() {
+		Sistema.getInstance().log_in("Profesor", "profeduudle");
+		boolean aleatorio = true;
+		ejercicio1.setAleatorio(aleatorio);
+		assertSame(aleatorio, ejercicio1.getAleatorio());
+	}
+	
+	@Test
 	public void testOcultarEjercicio() {
+		Sistema.getInstance().log_in("Profesor", "profeduudle");
 		ejercicio1.ocultarEjercicio();
 		assertSame(false, ejercicio1.getVisible());
 	}
@@ -84,7 +99,9 @@ public class EjercicioTest {
 
 	@Test
 	public void testAniadirPregunta() {
+		
 		int i = 0;
+		Sistema.getInstance().log_in("Profesor", "profeduudle");
 		ejercicio1.aniadirPregunta(pregunta1);
 		assertSame(pregunta1, ejercicio1.getPreguntas().get(i));
 		assertSame(1, ejercicio1.getPreguntas().size());
@@ -122,7 +139,7 @@ public class EjercicioTest {
 	
 	@Test
 	public void testGetFechaIni() {
-		Asignatura asignatura = new Asignatura("PADSOF", false);
+		Asignatura asignatura = new Asignatura("PADSOF", true);
 		Tema tema1 = new Tema("Tema1", false);
 		asignatura.aniadirTema(tema1);
 		tema1.aniadirEjercicio(ejercicio1);
@@ -132,7 +149,7 @@ public class EjercicioTest {
 
 	@Test
 	public void testSetFechaIni() {
-		Asignatura asignatura = new Asignatura("PADSOF", false);
+		Asignatura asignatura = new Asignatura("PADSOF", true);
 		Tema tema1 = new Tema("Tema1", false);
 		asignatura.aniadirTema(tema1);
 		tema1.aniadirEjercicio(ejercicio1);
@@ -165,13 +182,14 @@ public class EjercicioTest {
 	}
 
 	@Test
-	public void testIsExpirado() {
-		assertSame(false, ejercicio1.isExpirado());
+	public void testEstaEnPlazo() {
+		assertSame(true, ejercicio1.estaEnPlazo());
 	}
 
 	@Test
 	public void testGetPreguntas() {
 		int i = 0;
+		Sistema.getInstance().log_in("Profesor", "profeduudle");
 		ejercicio1.aniadirPregunta(pregunta1);
 		assertSame(pregunta1, ejercicio1.getPreguntas().get(i));
 		assertSame(1, ejercicio1.getPreguntas().size());

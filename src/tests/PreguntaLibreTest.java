@@ -39,7 +39,7 @@ public class PreguntaLibreTest {
 		alumno1 = new Alumno("Juan", "Gonzalez", "juan@gmail.es", "1234", "contrasena1");
 		alumno2 = new Alumno("Miguel", "Garcia", "miggui@gmail.es", "1235", "contrasena2");
 		alumno3 = new Alumno("Pepe", "Garcia", "peps@gmail.es", "1255", "contrasena3");
-		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		ejercicio1 = new Ejercicio("Ejercicio1", 0.5f, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false, false);
 		preguntaLibre1 = new PreguntaLibre("¿Es el cielo azul?", 0.5f, false, 0.25f, "libre");
 		respuestaProf = new RespuestaLibre(null);
 		respuesta1 = new RespuestaLibre(alumno1);
@@ -108,6 +108,21 @@ public class PreguntaLibreTest {
 	public void testSetRespuestaProf(){
 		preguntaLibre1.setRespuestaProf(respuestaProf);
 		assertSame(respuestaProf, preguntaLibre1.getRespuestaProf());
+	}
+	
+	@Test
+	public void testGetAleatorio() {
+		boolean aleatorio = true;
+		ejercicio1.setAleatorio(aleatorio);
+		ejercicio1.aniadirPregunta(preguntaLibre1);
+		assertSame(aleatorio, preguntaLibre1.getAleatorio());
+	}
+
+	@Test
+	public void testSetAleatorio() {
+		boolean aleatorio = true;
+		preguntaLibre1.setAleatorio(aleatorio);
+		assertSame(aleatorio, preguntaLibre1.getAleatorio());
 	}
 	
 	@Test

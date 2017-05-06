@@ -4,12 +4,16 @@ import java.util.*;
 import asignatura.*;
 import sistema.*;
 import ejercicio.*;
+import ventanas.*;
+
 public class Tester {
 	
 	private static final boolean VISIBLE = true;
 	private static final boolean NO_VISIBLE = false;
 	private static final boolean RESTA = true;
 	private static final boolean NO_RESTA = false;
+	
+	
 	public static void main(String args[]){
 		
 		/**
@@ -51,6 +55,8 @@ public class Tester {
 		}catch (Exception e){
 			System.err.println("Error");
 		}
+		
+		new FramePrincipal();
 		
 		/**
 		 * CREAR ASIGNATURAS
@@ -345,18 +351,19 @@ public class Tester {
 		String nombreEjercicio = "Ejercicio 1";
 		float pesoEjercicio = 10;
 		int anyoFin = 2017;
-		int mesFin = 4;
-		int diaFin = 23;
-		int horaFin = 9;
-		int minFin = 0;
 		int anyoIni = 2017;
 		int mesIni = 3;
 		int diaIni = 23;
 		int horaIni = 9;
 		int minIni = 0;
-		
+		int mesFin = 10;
+		int diaFin = 23;
+		int horaFin = 9;
+		int minFin = 0;
+	
+		boolean aleat = false;
 		//Lo creamos y lo añadimos a un tema
-		sistema.crearEjercicio(Analisis, nombreEjercicio, pesoEjercicio, anyoFin, mesFin, diaFin, horaFin, minFin, anyoIni, mesIni, diaIni, horaIni, minIni, VISIBLE);
+		sistema.crearEjercicio(Analisis, nombreEjercicio, pesoEjercicio,  anyoIni, mesIni, diaIni, horaIni, minIni, anyoFin, mesFin, diaFin, horaFin, minFin, VISIBLE, aleat);
 		//Verificar que el tema de Analisis y Diseño tiene ahora un ejercicio
 		if (Analisis.getEjercicios().size() == 1){
 			System.out.println("Analisis y diseño tiene un nuevo ejercicio, este mensaje SI debe aparecer");
@@ -369,19 +376,20 @@ public class Tester {
 		//Crearemos un ejercicio arbitrario para añadirlo y eliminarlo posteriormente
 		String nombreEjercicio2 = "Ejercicio 2";
 		float pesoEjercicio2 = 10;
-		int anyoFin2 = 2017;
-		int mesFin2 = 4;
-		int diaFin2 = 25;
-		int horaFin2 = 9;
-		int minFin2 = 0;
 		int anyoIni2 = 2017;
 		int mesIni2 = 3;
 		int diaIni2 = 25;
 		int horaIni2 = 9;
 		int minIni2 = 0;
+		int anyoFin2 = 2017;
+		int mesFin2 = 10;
+		int diaFin2 = 25;
+		int horaFin2 = 9;
+		int minFin2 = 0;
 		
+		boolean aleat2 = false;
 		//Lo creamos y lo añadimos a un tema
-		sistema.crearEjercicio(Analisis, nombreEjercicio2, pesoEjercicio2, anyoFin2, mesFin2, diaFin2, horaFin2, minFin2, anyoIni2, mesIni2, diaIni2, horaIni2, minIni2, VISIBLE);
+		sistema.crearEjercicio(Analisis, nombreEjercicio2, pesoEjercicio2,  anyoIni2, mesIni2, diaIni2, horaIni2, minIni2, anyoFin2, mesFin2, diaFin2, horaFin2, minFin2, VISIBLE, aleat2);
 		
 		//Verificar que el tema de Analisis y Diseño tiene ahora dos ejercicios
 		if (Analisis.getEjercicios().size() == 2){
@@ -624,10 +632,10 @@ public class Tester {
 		 *  CALCULAMOS LA NOTA DEL ALUMNO
 		 */
 		//Las ponderaciones de las preguntas son 20, 10, 10 y 10 respectivamente.
-		//La primera la responde correctamente, por lo que suma (20/50) *10 4 puntos
-		//La segunda la responde correctamente, por lo que suma (10/50) *10 2 puntos
-		//La tercera la responde erroneamente, por lo que resta (5/50) *10 1 puntos
-		//La tercera la responde erroneamente, por lo que suma 0 puntos
+		//La primera la responde correctamente, por lo que suma (20/50) *10 = 4 puntos
+		//La segunda la responde correctamente, por lo que suma (10/50) *10 = 2 puntos
+		//La tercera la responde erroneamente, por lo que resta (5/50) *10 = -1 puntos
+		//La cuarta la responde erroneamente, por lo que suma 0 puntos
 		
 		System.out.println("\nProbando --> Obtener calificacion media de un alumno en una asignatura (log como alumno)<--\n");
 		
@@ -674,7 +682,7 @@ public class Tester {
 			System.out.println("\nCorrecto --> El tema Analisis y diseño de padsof no ha debido eliminarse<--\n");
 		}
 		
-		System.out.println("\nProbando --> Eliminar Ejercicio realizado<--\n");
+		System.out.println("\nProbando --> Eliminar Tema con algun Ejercicio realizado<--\n");
 		padsof.eliminarTema(padsof.getTemas().get(0));
 		
 		if(padsof.getTemas().get(0).getEjercicios().get(0).getNombre() == "Ejercicio 1"){

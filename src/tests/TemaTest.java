@@ -33,8 +33,8 @@ public class TemaTest {
 		opcion2 = new Opcion("No");
 		opciones1 = new ArrayList<Opcion>();
 		opciones2 = new ArrayList<Opcion>();
-		ejercicio1 = new Ejercicio("Ejercicio1", 10, 2017, 8, 10, 12, 0, 2017, 6, 10, 22, 00, false);
-		ejercicio2 = new Ejercicio("Ejercicio2", 10, 2017, 8, 10, 12, 0, 2017, 10, 10, 12, 0, false);
+		ejercicio1 = new Ejercicio("Ejercicio1", 10, 2017, 3, 10, 12, 0, 2017, 6, 10, 22, 00, true, false);
+		ejercicio2 = new Ejercicio("Ejercicio2", 10, 2017, 3, 10, 12, 0, 2017, 10, 10, 12, 0, true, false);
 		apunte1 = new Apunte("Apunte1", false, "Este es un apunte de este tema");
 		pregunta1 = new PreguntaBooleana("¿Es el cielo azul?", 5, false, 0.25f, "booleana");
 		pregunta2 = new PreguntaBooleana("¿Es el cielo verde?", 5, false, 0.25f, "booleana");
